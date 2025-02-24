@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7571259940553657465}
   - component: {fileID: 1535818033970445302}
   - component: {fileID: 2286614309129569107}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -119,6 +119,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -158,9 +170,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 031e9cbaac8966c44853ba758c6e05c2, type: 2}
     - target: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2788943867344286557, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -175,10 +195,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1561690009785321638}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5902483108231830066}
+      addedObject: {fileID: 392691256958309450}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5357308047147325533}
@@ -196,25 +213,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
   m_PrefabInstance: {fileID: 8514960592886783859}
   m_PrefabAsset: {fileID: 0}
---- !u!111 &1561690009785321638
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8856995359486534178}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: -7378907758617144908, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
-  m_Animations:
-  - {fileID: -7378907758617144908, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
---- !u!135 &5902483108231830066
-SphereCollider:
+--- !u!64 &392691256958309450
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -231,9 +231,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 289301614986012343, guid: de8125cbf65a21441a5bba701033bd9b, type: 3}
 --- !u!54 &5357308047147325533
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -273,12 +274,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b11d9737b24425418d2be9da4700cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2
-  horizontalJumpForce: 2
-  moveSpeed: 2
-  airControlForce: 2
-  extraGroundCheckHeight: 0.1
+  jumpForce: 1.5
+  horizontalJumpForce: 3
+  moveSpeed: 3
+  airControlForce: 3
+  extraGroundCheckHeight: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
+  groundCheckRadius: 0.5
+  groundCheckOffsetY: 0.25
+  groundCheckExtraHeight: 0.1
   _cameraTransform: {fileID: 3500412373123110639}

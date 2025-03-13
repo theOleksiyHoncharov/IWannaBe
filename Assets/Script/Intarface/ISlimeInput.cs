@@ -1,10 +1,12 @@
 using UnityEngine;
-
-public interface ISlimeInput
+namespace WannaBe
 {
-    /// <summary>
-    /// Повертає значення лівого стіку для руху слайма.
-    /// </summary>
-    Vector2 GetMoveValue();
+    public interface ISlimeInput
+    {
+        /// <summary>
+        /// Повертає значення лівого стіку для руху слайма.
+        /// </summary>
+        Vector2 GetMoveValue();
 
+    }
 }

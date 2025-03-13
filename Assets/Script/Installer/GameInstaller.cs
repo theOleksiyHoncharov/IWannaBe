@@ -1,14 +1,17 @@
 using Zenject;
 using UnityEngine;
 
-public class GameInstaller : MonoInstaller
+namespace WannaBe
 {
-    public override void InstallBindings()
+    public class GameInstaller : MonoInstaller
     {
-        // Ваші глобальні Bind-и
-        Container.Bind<ISlimeInput>().To<DefaultSlimeInput>().AsSingle();
-        Container.Bind<ICameraInput>().To<DefaultCameraInput>().AsSingle();
+        public override void InstallBindings()
+        {
+            // Ваші глобальні Bind-и
+            Container.Bind<ISlimeInput>().To<DefaultSlimeInput>().AsSingle();
+            Container.Bind<ICameraInput>().To<DefaultCameraInput>().AsSingle();
+
+        }
 
     }
-
 }

@@ -1,9 +1,11 @@
 using UnityEngine;
-
-public interface ICameraInput
+namespace WannaBe
 {
-    /// <summary>
-    /// Повертає значення правого стіку (Vector2).
-    /// </summary>
-    Vector2 GetRightStickValue();
+    public interface ICameraInput
+    {
+        /// <summary>
+        /// Повертає значення правого стіку (Vector2).
+        /// </summary>
+        Vector2 GetRightStickValue();
+    }
 }

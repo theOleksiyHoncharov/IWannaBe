@@ -9,7 +9,7 @@
     SubShader
     {
         Tags {
-            "Queue"="Transparent"
+            "Queue"="Transparent-1"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
         }
@@ -118,7 +118,8 @@
                 float anglePerFrame = 360.0 / totalFrames;
                 float frameIndex = floor((i.vDiscreteAngle + anglePerFrame * 0.5) / anglePerFrame);
                 frameIndex = fmod(frameIndex, totalFrames);
-
+                frameIndex += totalFrames / 2.0;
+                frameIndex %= totalFrames;
                 float row = floor(frameIndex / _Columns);
                 float col = fmod(frameIndex, _Columns);
 

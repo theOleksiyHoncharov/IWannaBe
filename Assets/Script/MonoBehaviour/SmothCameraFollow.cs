@@ -12,7 +12,7 @@ namespace WannaBe
 
         [Header("Налаштування камери")]
         [Tooltip("Фіксована висота камери (координата Y).")]
-        public float fixedCameraHeight = 10f;
+        public float fixedCameraHeight = 5f;
         [Tooltip("Відстань від цілі (радіус орбіти).")]
         public float distance = 10f;
         [Tooltip("Швидкість обертання камери навколо осі Y.")]
@@ -36,7 +36,7 @@ namespace WannaBe
 
             // Фіксуємо кут нахилу по X на 45°
             Vector3 startRotation = transform.eulerAngles;
-            startRotation.x = 45f;
+            startRotation.x = 20f;
             transform.eulerAngles = startRotation;
         }
 
@@ -50,7 +50,7 @@ namespace WannaBe
             float rotationInput = rightStickValue.x;
             _currentYAngle += rotationInput * rotationSpeed * Time.deltaTime;
 
-            Quaternion desiredRotation = Quaternion.Euler(45f, _currentYAngle, 0f);
+            Quaternion desiredRotation = Quaternion.Euler(20f, _currentYAngle, 0f);
             Vector3 offset = new Vector3(0f, 0f, -distance);
             Vector3 targetXZ = new Vector3(target.position.x, 0f, target.position.z);
             Vector3 desiredPosition = targetXZ + desiredRotation * offset;

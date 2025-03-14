@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8349432618101099530}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3794095, y: -0.12059052, z: 0.049950227, w: 0.91597563}
-  m_LocalPosition: {x: 2.5, y: 12.5, z: -9}
+  m_LocalPosition: {x: 5, y: 14, z: -19.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8187982788940150936}
-  fixedCameraHeight: 10
-  distance: 10
+  fixedCameraHeight: 5
+  distance: 14
   rotationSpeed: 100
   followSmoothTime: 0.2
 --- !u!1001 &8514960592886783859

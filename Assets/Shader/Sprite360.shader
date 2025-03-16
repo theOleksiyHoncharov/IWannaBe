@@ -16,7 +16,7 @@
         }
         LOD 100
 
-        Cull OFF 
+        Cull Front 
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 

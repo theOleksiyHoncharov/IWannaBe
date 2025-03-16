@@ -5,6 +5,10 @@ namespace WannaBe
 {
     public class EnemyControllerPool : MemoryPool<EnemyController>
     {
+        protected override void OnCreated(EnemyController enemy)
+        {
+            enemy.gameObject.SetActive(false);
+        }
         protected override void Reinitialize(EnemyController enemy)
         {
             enemy.ResetState();

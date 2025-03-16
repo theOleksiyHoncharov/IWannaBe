@@ -49,13 +49,14 @@ namespace WannaBe
         /// <summary>
         /// Спавнить ворога заданого типу на вказаній позиції.
         /// </summary>
-        public EnemyController SpawnEnemy(EnemyType type, Vector3 position)
+        public EnemyController SpawnEnemy(EnemyType type, Vector3 position, Vector3 guidePoint)
         {
             if (_enemyPools.TryGetValue(type, out var pool))
             {
                 EnemyController enemy = pool.Spawn();
                 enemy.enemyType = type;
                 enemy.Spawn(position);
+                enemy.Guide(guidePoint);
                 return enemy;
             }
             else

@@ -13,6 +13,9 @@ namespace WannaBe
         // Список спавн-пойнтів на сцені
         [Inject]
         private List<SpawnPoint> _spawnPoints;
+        
+        [Inject]
+        private IFinishPointProvider _finishPoint;
 
         [Tooltip("Конфігурації хвиль, що задаються через інспектор")]
         public WaveConfig[] waveConfigs;
@@ -34,7 +37,7 @@ namespace WannaBe
                         SpawnPoint spawnPoint = GetRandomSpawnPoint();
                         if (spawnPoint != null)
                         {
-                            _enemySpawner.SpawnEnemy(config.enemyType, spawnPoint.transform.position);
+                            _enemySpawner.SpawnEnemy(config.enemyType, spawnPoint.transform.position, _finishPoint.GetFinishPoint());
                         }
                         yield return new WaitForSeconds(wave.delayBetweenSpawns);
                     }

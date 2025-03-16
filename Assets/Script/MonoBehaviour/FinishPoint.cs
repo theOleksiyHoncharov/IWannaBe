@@ -4,9 +4,17 @@ namespace WannaBe
 {
     public class FinishPoint : MonoBehaviour, IFinishPointProvider
     {
-        public UnityEngine.Transform GetFinishPoint()
+        public Vector3 GetFinishPoint()
         {
-            return transform;
+            return transform.position;
         }
+        private void OnTriggerEnter(Collider collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.gameObject.GetComponent<IKillable>()?.Kill();
+            }
+        }
+
     }
 }

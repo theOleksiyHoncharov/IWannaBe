@@ -1,10 +1,12 @@
+using UnityEngine;
+
 namespace WannaBe
 {
     public interface IFinishPointProvider
     {
         /// <summary>
-        /// Повертає трансформ, який є ціллю для ворогів.
+        /// Повертає позицію, яка є ціллю для ворогів.
         /// </summary>
-        UnityEngine.Transform GetFinishPoint();
+        Vector3 GetFinishPoint();
     }
 }

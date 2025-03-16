@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 namespace WannaBe
 {
-    public class EnemyController : MonoBehaviour, IResettable
+    public class EnemyController : MonoBehaviour, IResettable, IDamageable, IKillable, IGuidable
     {
         public EnemyType enemyType;
         public int health = 100;
         public float speed = 5f;
         public int damage = 10;
 
+        [SerializeField]
+        private NavMeshAgent _navMeshAgent;
 
         [Inject]
         private SignalBus _signalBus;
@@ -33,22 +36,24 @@ namespace WannaBe
             // Відправка сигналу про смерть ворога
             _signalBus.Fire(new EnemyDiedSignal { Enemy = this });
         }
-        public class Pool : MemoryPool<EnemyController>
-        {
-            // Викликається, коли об'єкт отримується з пулу
-            protected override void OnSpawned(EnemyController enemy)
-            {
-                base.OnSpawned(enemy);
-                enemy.ResetState();
-                enemy.gameObject.SetActive(true);
-            }
 
-            // Викликається, коли об'єкт повертається в пул
-            protected override void OnDespawned(EnemyController enemy)
+        public void Kill()
+        {
+            Die();
+        }
+
+        public void TakeDamage(int damage)
+        {
+           this.health -= damage;
+            if (this.health <= 0)
             {
-                base.OnDespawned(enemy);
-                enemy.gameObject.SetActive(false);
+                Die();
             }
+        }
+
+        public void Guide(Vector3 target)
+        {
+            _navMeshAgent.SetDestination(target);
         }
     }
 }

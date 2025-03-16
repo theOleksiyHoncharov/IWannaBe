@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slime
   - Eatable
+  - Enemy
   layers:
   - Default
   - TransparentFX

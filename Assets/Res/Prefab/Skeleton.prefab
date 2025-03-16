@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8538708930415248030}
   - component: {fileID: 5136304097945695385}
   m_Layer: 0
-  m_Name: Goblin
+  m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af53282bfe77f6409730a66a916d268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 2
+  enemyType: 1
   health: 100
   speed: 5
   damage: 10
@@ -193,7 +193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ae04f0c1bd043841b8a1a660638dad1, type: 2}
+  - {fileID: 2100000, guid: aed315b47acdad5468c3cc0aa2ef668d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

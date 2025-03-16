@@ -1,38 +1,53 @@
 using UnityEngine;
-using UnityEngine.AI;
+using Zenject;
 
 namespace WannaBe
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IResettable
     {
-        private NavMeshAgent agent;
+        public EnemyType enemyType;
+        public int health = 100;
+        public float speed = 5f;
+        public int damage = 10;
 
-        [Tooltip("Фінальна точка, до якої має рухатися ворог")]
-        public Transform finalDestination;
 
-        private void Awake()
+        [Inject]
+        private SignalBus _signalBus;
+
+        public void Spawn(Vector3 position)
         {
-            agent = GetComponent<NavMeshAgent>();
+            transform.position = position;
+            // Додаткова ініціалізація
         }
 
-        private void Start()
+        public void ResetState()
         {
-            // Запуск behavior tree, наприклад, встановлюємо ціль
-            StartMovement();
+            health = 100;
+            // Скидання додаткових параметрів
         }
 
-        private void StartMovement()
+        public void Die()
         {
-            if (finalDestination != null)
+            // Логіка смерті ворога, наприклад, відтворення анімації, ефектів тощо
+
+            // Відправка сигналу про смерть ворога
+            _signalBus.Fire(new EnemyDiedSignal { Enemy = this });
+        }
+        public class Pool : MemoryPool<EnemyController>
+        {
+            // Викликається, коли об'єкт отримується з пулу
+            protected override void OnSpawned(EnemyController enemy)
             {
-                // Завдання SetDestination: встановлення цілі
-                agent.SetDestination(finalDestination.position);
-
-                // Тут можна інтегрувати виклик інших вузлів behavior tree, наприклад, WaitForArrival
+                base.OnSpawned(enemy);
+                enemy.ResetState();
+                enemy.gameObject.SetActive(true);
             }
-            else
+
+            // Викликається, коли об'єкт повертається в пул
+            protected override void OnDespawned(EnemyController enemy)
             {
-                Debug.LogWarning("Фінальна точка не встановлена для " + gameObject.name);
+                base.OnDespawned(enemy);
+                enemy.gameObject.SetActive(false);
             }
         }
     }

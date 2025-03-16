@@ -9,13 +9,14 @@
     SubShader
     {
         Tags {
-            "Queue"="Transparent-1"
+            "Queue"="Transparent"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
+            "DisableBatching"="True"
         }
         LOD 100
 
-        Cull Off
+        Cull OFF 
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 
@@ -51,15 +52,15 @@
             v2f vert (appdata v)
             {
                 v2f o;
-
+                float3 camForward = normalize(mul((float3x3)unity_CameraToWorld, float3(0,0,-1)));
+                camForward.y = 0; // проєктуємо на горизонтальну площину, якщо потрібна лише горизонтальна орієнтація
                 // 1) Перетворення вершини в світові координати
                 float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 float3 pivot = mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
 
-                // 2) Обчислюємо напрямок від pivot до камери (горизонтально)
-                float3 toCam = _WorldSpaceCameraPos - pivot;
-                float3 toCamHoriz = toCam;
-                toCamHoriz.y = 0;
+                // 2) Обчислюємо напрямок до камери (горизонтально)
+                float3 toCamHoriz = camForward;
+
                 float dist = length(toCamHoriz);
                 if(dist > 0.0001)
                     toCamHoriz = normalize(toCamHoriz);
@@ -69,20 +70,14 @@
                 // 3) Обчислюємо «фронт» об’єкта в світових координатах
                 float3 objFwdWS = mul(unity_ObjectToWorld, float4(0,0,1,0)).xyz;
                 objFwdWS.y = 0;
-                float lenF = length(objFwdWS);
-                if(lenF > 0.0001)
-                    objFwdWS = normalize(objFwdWS);
-                else
-                    objFwdWS = float3(0,0,1);
+                objFwdWS = normalize(objFwdWS);
 
-                // 4) Обчислюємо кут між напрямком об’єкта та камерою (в градусах)
-                float dotF = clamp(dot(objFwdWS, toCamHoriz), -1.0, 1.0);
+                float dotF = clamp(dot(objFwdWS, camForward), -1.0, 1.0);
                 float angleRad = acos(dotF);
-                float3 crossF = cross(objFwdWS, toCamHoriz);
+                float3 crossF = cross(objFwdWS, camForward);
                 if(crossF.y < 0)
                     angleRad = -angleRad;
                 float angleDeg = degrees(angleRad);
-                // Приводимо кут до діапазону [0,360)
                 float geoAngle = fmod(angleDeg + 360.0, 360.0);
 
                 // 5) Розбиваємо кут на дискретні кроки, залежно від кількості кадрів в атласі
@@ -130,6 +125,7 @@
                 float4 c = tex2D(_MainTex, uv);
                 return c;
             }
+
             ENDCG
         }
     }

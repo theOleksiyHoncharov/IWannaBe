@@ -40,7 +40,7 @@ Shader "Custom/SlimeWithFakePhysicalShadow"
 
         Pass
         {
-            Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite Off
 
             CGPROGRAM
             #pragma vertex vert

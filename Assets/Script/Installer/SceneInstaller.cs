@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 namespace WannaBe
@@ -25,6 +26,13 @@ namespace WannaBe
             Container.BindInterfacesAndSelfTo<SlimeSpawner>()
                 .AsSingle()
                 .NonLazy();
+            // Знаходимо FinishPoint у сцені і біндуємо його як IFinishPointProvider
+            Container.Bind<IFinishPointProvider>()
+                     .FromComponentInHierarchy()
+                     .AsSingle();
+            // Інші бінди, наприклад, спавн-пойнти або LevelController
+            Container.Bind<SpawnPoint>().FromComponentsInHierarchy().AsCached();
+            Container.Bind<LevelController>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

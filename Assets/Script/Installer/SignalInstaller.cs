@@ -8,6 +8,7 @@ namespace WannaBe
         {
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<EnemyDiedSignal>();
+            Container.DeclareSignal<BulletReturnSignal>();
         }
     }
 }

@@ -11,6 +11,8 @@ namespace WannaBe
         public float speed = 5f;
         public int damage = 10;
 
+        private bool _isDead = false;
+
         [SerializeField]
         private NavMeshAgent _navMeshAgent;
 
@@ -31,7 +33,10 @@ namespace WannaBe
 
         public void Die()
         {
-            // Логіка смерті ворога, наприклад, відтворення анімації, ефектів тощо
+            if (_isDead)
+                return;
+
+            _isDead = true; // Не забудь замінити якщо переробиш на стейти ворога (наприклад ворог помирає, але його тіло залишається на місці поки що)
 
             // Відправка сигналу про смерть ворога
             _signalBus.Fire(new EnemyDiedSignal { Enemy = this });

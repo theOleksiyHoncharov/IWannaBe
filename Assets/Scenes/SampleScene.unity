@@ -1504,6 +1504,7 @@ GameObject:
   - component: {fileID: 629130660}
   - component: {fileID: 629130661}
   - component: {fileID: 629130662}
+  - component: {fileID: 629130663}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1530,6 +1531,7 @@ MonoBehaviour:
   - {fileID: 629130659}
   - {fileID: 629130661}
   - {fileID: 629130662}
+  - {fileID: 629130663}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1632,6 +1634,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc856c5a062ac7418357c494c21a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &629130663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629130655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31c00e132f74514e8645553a0b956a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCommonMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  goblinMaterial: {fileID: 2100000, guid: 9ae04f0c1bd043841b8a1a660638dad1, type: 2}
+  skeletonMaterial: {fileID: 2100000, guid: aed315b47acdad5468c3cc0aa2ef668d, type: 2}
+  zombieMaterial: {fileID: 2100000, guid: 8f79423f29788104688edabc96e5b0fd, type: 2}
+  bulletCommonMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  fireBulletMaterial: {fileID: 2100000, guid: 2557685d7e456de4e8679a5b557d0994, type: 2}
+  frostBulletMaterial: {fileID: 2100000, guid: 00ea724db3b533b419fa78374dbc7520, type: 2}
+  poisonBulletMaterial: {fileID: 2100000, guid: 9e32d5adc2741f74bb853bb53f0b4114, type: 2}
+  towerCommonMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  towerMaterial: {fileID: 2100000, guid: 69c8ef86db48bfd42bf6b2c3c2b1aa1a, type: 2}
 --- !u!1001 &641597314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2809,10 +2833,10 @@ MonoBehaviour:
     - enemyType: 0
       count: 29
     - enemyType: 1
-      count: 28
+      count: 283
     - enemyType: 2
-      count: 28
-    delayBetweenSpawns: 0.5
+      count: 281
+    delayBetweenSpawns: 0.01
     delayBetweenWaves: 10
   - enemyWaveConfigs:
     - enemyType: 1

@@ -2,6 +2,6 @@ namespace WannaBe
 {
     public interface IDamageable
     {
-        void TakeDamage(int damage);
+        void TakeDamage(float damage);
     }
 }

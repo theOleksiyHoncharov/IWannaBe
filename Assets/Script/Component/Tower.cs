@@ -60,7 +60,6 @@ namespace WannaBe
 
             foreach (Collider hit in hits)
             {
-                // Припустимо, що вороги мають тег "Enemy"
                 if (!hit.CompareTag("Enemy"))
                     continue;
 

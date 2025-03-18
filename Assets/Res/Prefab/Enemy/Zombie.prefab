@@ -42,6 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2076910075966302610}
   - component: {fileID: 3807160794601670051}
+  - component: {fileID: -8417505933550550764}
+  - component: {fileID: 250354350460579399}
   - component: {fileID: 8538708930415248030}
   - component: {fileID: 5136304097945695385}
   - component: {fileID: -1382656172334344400}
@@ -85,6 +87,31 @@ MonoBehaviour:
   speed: 5
   damage: 10
   _navMeshAgent: {fileID: 8538708930415248030}
+  _effectComponent: {fileID: -8417505933550550764}
+--- !u!114 &-8417505933550550764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082786807640774124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860c71807189b944c8da96ef99a7308a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &250354350460579399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082786807640774124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df9542625483ae4598ab9a9ad3dafc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &8538708930415248030
 NavMeshAgent:
   m_ObjectHideFlags: 0

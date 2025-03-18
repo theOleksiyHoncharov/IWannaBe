@@ -16,12 +16,16 @@ namespace WannaBe
 
         public BulletDistributor(
             [Inject(Id = BulletType.Fire)] BulletPool fireBulletPool,
+            [Inject(Id = BulletType.Frost)] BulletPool frostBulletPool,
+            [Inject(Id = BulletType.Poison)] BulletPool poisonBulletPool,
             SignalBus signalBus)
         {
             _signalBus = signalBus;
             _pools = new Dictionary<BulletType, BulletPool>
             {
-                { BulletType.Fire, fireBulletPool }
+                { BulletType.Fire, fireBulletPool },
+                { BulletType.Frost, frostBulletPool },
+                { BulletType.Poison, poisonBulletPool }
             };
         }
 

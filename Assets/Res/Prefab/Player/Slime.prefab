@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8187982788940150936}
-  fixedCameraHeight: 10
-  distance: 14
+  fixedCameraHeight: 15
+  distance: 30
   rotationSpeed: 100
   followSmoothTime: 0.2
 --- !u!1001 &8514960592886783859

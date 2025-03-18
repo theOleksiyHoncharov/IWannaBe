@@ -7,6 +7,7 @@ namespace GPUInstancingRender
         EnemyZombie,
         BulletFire,
         BulletFrost,
-        BulletPoison
+        BulletPoison,
+        Tower
     }
 }

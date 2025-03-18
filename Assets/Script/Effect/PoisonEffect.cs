@@ -47,13 +47,13 @@ namespace WannaBe
 
         public void OnApply()
         {
-            Debug.Log("PoisonEffect applied.");
+            //Debug.Log("PoisonEffect applied.");
             // Запустіть візуальні ефекти, якщо потрібно
         }
 
         public void OnRemove()
         {
-            Debug.Log("PoisonEffect removed.");
+            //Debug.Log("PoisonEffect removed.");
             // Приберіть візуальні ефекти
         }
 

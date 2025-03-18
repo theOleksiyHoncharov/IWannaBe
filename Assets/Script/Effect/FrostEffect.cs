@@ -38,13 +38,13 @@ namespace WannaBe
 
         public void OnApply()
         {
-            Debug.Log("FrostEffect applied.");
+            //Debug.Log("FrostEffect applied.");
             // Тут можна запустити візуальні/звукові ефекти
         }
 
         public void OnRemove()
         {
-            Debug.Log("FrostEffect removed.");
+            //Debug.Log("FrostEffect removed.");
             // Прибираємо ефекти
         }
 

@@ -45,13 +45,13 @@ namespace WannaBe
 
         public void OnApply()
         {
-            Debug.Log("FireEffect застосовано.");
+            //Debug.Log("FireEffect застосовано.");
             // Можна додати візуальні ефекти
         }
 
         public void OnRemove()
         {
-            Debug.Log("FireEffect знято.");
+            //Debug.Log("FireEffect знято.");
             // Прибираємо візуальні ефекти
         }
     }

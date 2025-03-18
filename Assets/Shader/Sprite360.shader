@@ -1,4 +1,4 @@
-﻿Shader "Custom/PartialBillboard2D_WithCamera_Instanced"
+﻿Shader "Custom/PartialBillboard2D_WithCamera_InstancedZSort"
 {
     Properties
     {
@@ -12,11 +12,9 @@
             "Queue"="Transparent"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
-            // Прибираємо "DisableBatching"="True" щоб дозволити батчінг
         }
         LOD 100
 
-        // Залишаємо Cull Front, якщо це потрібно саме вам
         Cull Front
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
@@ -24,7 +22,6 @@
         Pass
         {
             CGPROGRAM
-            // Додаємо директиви для інстансингу
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
@@ -37,9 +34,10 @@
             float _Columns;
             float _Rows;
 
-            // Оголошуємо інстансовану властивість _Pivot (позиція екземпляра)
+            // Додаємо інстансовані змінні
             UNITY_INSTANCING_BUFFER_START(Props)
                 UNITY_DEFINE_INSTANCED_PROP(float4, _Pivot)
+                UNITY_DEFINE_INSTANCED_PROP(float, _DepthLevel) // Нове значення глибини
             UNITY_INSTANCING_BUFFER_END(Props)
 
             struct appdata
@@ -53,8 +51,8 @@
             {
                 float4 vertex : SV_POSITION;
                 float2 uv     : TEXCOORD0;
-                // Дискретний кут (в градусах) для вибору кадру з атласу
                 float vDiscreteAngle : TEXCOORD1;
+                float depthOffset : TEXCOORD2; // Для Z-Ordering
             };
 
             v2f vert (appdata v)
@@ -62,23 +60,18 @@
                 UNITY_SETUP_INSTANCE_ID(v);
                 v2f o;
 
-                // 1) Визначаємо напрям камери по горизонталі
                 float3 camForward = normalize(mul((float3x3)unity_CameraToWorld, float3(0,0,-1)));
                 camForward.y = 0;
                 camForward = normalize(camForward);
 
-                // 2) Перетворюємо вершину в світові координати
                 float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-
-                // 3) Pivot тепер беремо з інстансованої властивості
                 float3 pivot = UNITY_ACCESS_INSTANCED_PROP(Props, _Pivot).xyz;
+                float depthLevel = UNITY_ACCESS_INSTANCED_PROP(Props, _DepthLevel); 
 
-                // 4) «Фронт» об’єкта (0,0,1 у локальному просторі), спроєктований на горизонт
                 float3 objFwdWS = mul(unity_ObjectToWorld, float4(0,0,1,0)).xyz;
                 objFwdWS.y = 0;
                 objFwdWS = normalize(objFwdWS);
 
-                // 5) Обчислюємо кут між objFwdWS та camForward
                 float dotF = clamp(dot(objFwdWS, camForward), -1.0, 1.0);
                 float angleRad = acos(dotF);
                 float3 crossF = cross(objFwdWS, camForward);
@@ -87,14 +80,12 @@
                 float angleDeg = degrees(angleRad);
                 float geoAngle = fmod(angleDeg + 360.0, 360.0);
 
-                // 6) Дискретизація кута (залежно від _Columns * _Rows)
                 float totalFrames = _Columns * _Rows;
                 float anglePerFrame = 360.0 / totalFrames;
                 float frameIndex = floor((geoAngle + anglePerFrame * 0.5) / anglePerFrame);
                 frameIndex = fmod(frameIndex, totalFrames);
                 float discreteAngle = frameIndex * anglePerFrame;
 
-                // 7) Обертаємо геометрію навколо pivot на discreteAngle
                 float discreteAngleRad = radians(discreteAngle);
                 float c = cos(discreteAngleRad);
                 float s = sin(discreteAngleRad);
@@ -106,17 +97,19 @@
                 newPos.z = -s * shiftPos.x + c * shiftPos.z;
                 worldPos = newPos + pivot;
 
+                // **Z-Sorting** (чим більше depthLevel, тим далі від камери)
+                worldPos.z += depthLevel * 0.01; 
+
                 o.vertex = mul(UNITY_MATRIX_VP, float4(worldPos, 1.0));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                // Передаємо дискретний кут у фрагментний шейдер
                 o.vDiscreteAngle = discreteAngle;
+                o.depthOffset = depthLevel;
 
                 return o;
             }
 
             float4 frag (v2f i) : SV_Target
             {
-                // 8) Вибір кадру з атласу
                 float totalFrames = _Columns * _Rows;
                 float anglePerFrame = 360.0 / totalFrames;
                 float frameIndex = floor((i.vDiscreteAngle + anglePerFrame * 0.5) / anglePerFrame);
@@ -132,6 +125,7 @@
 
                 float2 uv = i.uv * uvScale + uvOffset;
                 float4 c = tex2D(_MainTex, uv);
+
                 return c;
             }
             ENDCG

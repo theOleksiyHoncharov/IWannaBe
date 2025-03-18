@@ -62,7 +62,7 @@ namespace WannaBe
             float multiplier = GetDamageMultiplier();
             float finalDamage = damage * multiplier;
             health -= finalDamage;
-            Debug.Log($"{name} отримав {finalDamage} пошкоджень (базово {damage}, множник {multiplier}). Залишилось здоров’я: {health}");
+            //Debug.Log($"{name} отримав {finalDamage} пошкоджень (базово {damage}, множник {multiplier}). Залишилось здоров’я: {health}");
 
             if (health <= 0)
             {
@@ -106,7 +106,7 @@ namespace WannaBe
             if (!Mathf.Approximately(_navMeshAgent.speed, newSpeed))
             {
                 _navMeshAgent.speed = newSpeed;
-                Debug.Log($"{name} speed updated to: {newSpeed}");
+                //Debug.Log($"{name} speed updated to: {newSpeed}");
             }
         }
 

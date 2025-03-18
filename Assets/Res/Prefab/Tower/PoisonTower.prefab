@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 1835939991722813246}
   - component: {fileID: 6325517081464138753}
   - component: {fileID: 5219410297788049319}
+  - component: {fileID: 7801871708006894277}
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
@@ -139,6 +140,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7801871708006894277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100134259991103956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c627ec55bac562a48ae02113433e0be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroupType: 5
 --- !u!1 &4337199870728899485
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +164,7 @@ GameObject:
   - component: {fileID: 6881416095267556489}
   - component: {fileID: 881637604117749955}
   - component: {fileID: 8382954931332581215}
+  - component: {fileID: 3712684612166573670}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -225,3 +240,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3712684612166573670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337199870728899485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c627ec55bac562a48ae02113433e0be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroupType: 6

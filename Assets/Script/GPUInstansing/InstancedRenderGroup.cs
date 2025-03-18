@@ -58,56 +58,47 @@ namespace GPUInstancingRender
             /// </summary>
             private void RenderInstances()
             {
-                int count = _instances.Count;
-                if (count == 0 || _commonMesh == null || _commonMaterial == null)
-                    return;
+                const int NUM_LAYERS = 1000; // Скільки рівнів глибини використовуємо
+                List<List<IInstancingData>> layers = new List<List<IInstancingData>>(NUM_LAYERS);
 
-                int batches = Mathf.CeilToInt((float)count / BatchSize);
+                // Ініціалізуємо списки для кожного рівня
+                for (int i = 0; i < NUM_LAYERS; i++)
+                    layers.Add(new List<IInstancingData>());
 
+                // 1) Розподіляємо об’єкти за відстанню до камери
                 Camera cam = Camera.main;
-                if (cam != null)
+                if (cam == null) return;
+
+                foreach (var instance in _instances)
                 {
-                    Debug.LogFormat("Camera pos=({0:F2}, {1:F2}, {2:F2}), rot=({3:F2}, {4:F2}, {5:F2}), near={6}, far={7}",
-                        cam.transform.position.x, cam.transform.position.y, cam.transform.position.z,
-                        cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z,
-                        cam.nearClipPlane, cam.farClipPlane
-                    );
+                    float distance = Vector3.Distance(instance.Pivot, cam.transform.position);
+                    int layerIndex = Mathf.Clamp((int)(distance / 10f), 0, NUM_LAYERS - 1);
+                    layers[layerIndex].Add(instance);
                 }
 
-
-                // Створимо дуже великі bounds, щоб гарантувати, що всі інстанси потрапляють в нього
-                Bounds bigBounds = new Bounds(Vector3.zero, new Vector3(10000, 10000, 10000));
-
-                for (int b = 0; b < batches; b++)
+                // 2) Малюємо об'єкти за рівнями
+                for (int layerIndex = 0; layerIndex < NUM_LAYERS; layerIndex++)
                 {
-                    int start = b * BatchSize;
-                    int currentBatch = Mathf.Min(BatchSize, count - start);
+                    var layer = layers[layerIndex];
+                    if (layer.Count == 0) continue;
 
+                    int currentBatch = layer.Count;
                     Matrix4x4[] matrices = new Matrix4x4[currentBatch];
                     Vector4[] pivots = new Vector4[currentBatch];
+                    float[] depthLevels = new float[currentBatch];
 
                     for (int i = 0; i < currentBatch; i++)
                     {
-                        IInstancingData data = _instances[start + i];
+                        IInstancingData data = layer[i];
                         matrices[i] = data.InstancingMatrix;
                         pivots[i] = data.Pivot;
-
-                        // Лог для кожного екземпляра:
-                        Debug.LogFormat(
-                            "Instance {0}: \n" +
-                            "Pivot = {1}, " +
-                            "Matrix pos=({2:F2}, {3:F2}, {4:F2}), \n" +
-                            "Matrix forward=({5:F2}, {6:F2}, {7:F2})",
-                            i,
-                            pivots[i],
-                            matrices[i].m03, matrices[i].m13, matrices[i].m23,
-                            matrices[i].m02, matrices[i].m12, matrices[i].m22
-                        );
+                        depthLevels[i] = (float)layerIndex / (float)NUM_LAYERS; // Нормалізуємо рівень глибини
                     }
+
                     var propertyBlock = new MaterialPropertyBlock();
                     propertyBlock.SetVectorArray("_Pivot", pivots);
+                    propertyBlock.SetFloatArray("_DepthLevel", depthLevels); // Передаємо рівень у шейдер
 
-                    // Де pivots[i] = новий Vector4( pivotX, pivotY, pivotZ, 1 );
                     Graphics.DrawMeshInstanced(
                         _commonMesh,
                         0,
@@ -118,10 +109,10 @@ namespace GPUInstancingRender
                         ShadowCastingMode.Off,
                         false,
                         _layer,
-                        Camera.main
+                        cam
                     );
-
                 }
+
             }
 
         }

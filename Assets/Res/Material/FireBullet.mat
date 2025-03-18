@@ -10,11 +10,11 @@ Material:
   m_Name: FireBullet
   m_Shader: {fileID: 4800000, guid: c7c06c0bc693c2a4a8333f833761d0d0, type: 3}
   m_Parent: {fileID: 2100000, guid: 00ea724db3b533b419fa78374dbc7520, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 4
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}

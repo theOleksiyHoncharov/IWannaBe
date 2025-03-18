@@ -7,10 +7,14 @@ namespace WannaBe
     [RequireComponent(typeof(EnemyAggregator))]
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(EffectListComponent))]
-    public class EnemyController : MonoBehaviour, IResettable, IDamageable, IKillable, IGuidable, IEffectable, ITargetMotion
+    public class EnemyController : MonoBehaviour, IResettable, IDamageable, IKillable, IGuidable, IEffectable, ITargetMotion, IHealth
     {
         public EnemyType enemyType;
-        public float health = 100f;
+        public float maxHealth = 100;
+        public float health = 100;
+        public float CurrentHealth => health;
+        public float MaxHealth => maxHealth;
+
         public float speed = 5f;
         public float damage = 10f;
 
@@ -34,7 +38,7 @@ namespace WannaBe
 
         public void ResetState()
         {
-            health = 100f;
+            health = maxHealth;
             _isDead = false;
             ResetEffects(); 
         }

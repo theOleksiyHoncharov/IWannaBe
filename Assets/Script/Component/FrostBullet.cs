@@ -53,7 +53,7 @@ namespace WannaBe
             }  
         }
 
-        protected override IEffect GetEffect()
+        protected override IEffect GetEffect(IDamageable damageable, IEffectable effectable)
         {
             // Створюємо FrostEffect, який зменшує швидкість ворога
             return new FrostEffect(frostEffectDuration, slowMultiplier);

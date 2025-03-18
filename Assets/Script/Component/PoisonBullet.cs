@@ -51,10 +51,10 @@ namespace WannaBe
             }
         }
 
-        protected override IEffect GetEffect()
+        protected override IEffect GetEffect(IDamageable damageable, IEffectable effectable)
         {
             // Створюємо PoisonEffect з параметрами тривалості та DPS
-            return new PoisonEffect(poisonEffectDuration, poisonEffectDps);
+            return new PoisonEffect(poisonEffectDuration, poisonEffectDps, damageable, effectable);
         }
 
         protected override float GetDamageValue()

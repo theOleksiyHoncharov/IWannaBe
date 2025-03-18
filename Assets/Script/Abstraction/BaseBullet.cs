@@ -25,7 +25,7 @@ namespace WannaBe
         /// <summary>
         /// Повертає ефект, який ця куля накладає на ворога.
         /// </summary>
-        protected abstract IEffect GetEffect();
+        protected abstract IEffect GetEffect(IDamageable damageable, IEffectable effectable);
 
         /// <summary>
         /// Повертає значення пошкодження, яке ця куля завдає.
@@ -43,7 +43,7 @@ namespace WannaBe
                 var aggregator = target.GetComponent<EnemyAggregator>();
                 if (aggregator != null)
                 {
-                    aggregator.Effectable?.ApplyEffect(GetEffect());
+                    aggregator.Effectable?.ApplyEffect(GetEffect(aggregator.Damageable,aggregator.Effectable));
                     aggregator.Damageable?.TakeDamage(GetDamageValue());
                 }
             }

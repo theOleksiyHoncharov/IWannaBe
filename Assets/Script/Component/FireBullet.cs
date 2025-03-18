@@ -59,7 +59,7 @@ namespace WannaBe
         /// <summary>
         /// Повертає ефект, який накладає FireBullet (наприклад, FireEffect).
         /// </summary>
-        protected override IEffect GetEffect()
+        protected override IEffect GetEffect(IDamageable damageable, IEffectable effectable)
         {
             return new FireEffect(fireEffectDuration, fireEffectMultiplier);
         }

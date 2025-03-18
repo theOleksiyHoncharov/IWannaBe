@@ -15,14 +15,20 @@ namespace WannaBe
         // Доступ до DPS для Merge-порівняння
         public float DamagePerSecond => _damagePerSecond;
 
-        public PoisonEffect(float duration, float damagePerSecond)
+        IDamageable _damageableTarget;
+        IEffectable _effectableTarget;
+
+        public PoisonEffect(float duration, float damagePerSecond, IDamageable damageable, IEffectable effectable)
         {
             _duration = duration;
             _damagePerSecond = damagePerSecond;
+            _damageableTarget = damageable;
+            _effectableTarget = effectable;
         }
 
         public void UpdateEffect(float deltaTime)
         {
+            OnTick(deltaTime);
             _duration -= deltaTime;
         }
 
@@ -51,17 +57,16 @@ namespace WannaBe
             // Приберіть візуальні ефекти
         }
 
-        public void OnTick(EnemyController enemy, float deltaTime)
+        public void OnTick(float deltaTime)
         {
             _tickTimer += deltaTime;
             // Наносимо пошкодження раз на секунду
             if (_tickTimer >= 1f)
             {
                 int ticks = Mathf.FloorToInt(_tickTimer);
-                enemy.TakeDamage(_damagePerSecond * ticks);
+                _damageableTarget.TakeDamage(_damagePerSecond * ticks);
                 _tickTimer -= ticks;
             }
-            UpdateEffect(deltaTime);
         }
     }
 }

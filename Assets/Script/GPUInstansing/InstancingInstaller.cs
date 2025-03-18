@@ -17,6 +17,10 @@ namespace GPUInstancingRender
         public Material frostBulletMaterial;
         public Material poisonBulletMaterial;
 
+        [Header("Tower Instancing Settings")]
+        public Mesh towerCommonMesh;
+        public Material towerMaterial;
+
         public override void InstallBindings()
         {
             // Створюємо менеджер груп вручну та зв'язуємо його як синглтон
@@ -41,6 +45,10 @@ namespace GPUInstancingRender
             groupManager.RegisterGroup(GPUInstancingGroupType.BulletFrost, bulletFrostGroup);
             groupManager.RegisterGroup(GPUInstancingGroupType.BulletPoison, bulletPoisonGroup);
 
+            // Створюємо групу для веж
+            var towerGroup = CreateInstancedGroup("TowerGroup", towerCommonMesh, towerMaterial, 0);
+            groupManager.RegisterGroup(GPUInstancingGroupType.Tower, towerGroup);
+
             // Якщо потрібно, можна також прив'язати кожну групу як IInstancingRenderGroup з унікальним ідентифікатором:
             Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.EnemyGoblin).FromInstance(enemyGoblinGroup).NonLazy();
             Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.EnemySkeleton).FromInstance(enemySkeletonGroup).NonLazy();
@@ -48,6 +56,7 @@ namespace GPUInstancingRender
             Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.BulletFire).FromInstance(bulletFireGroup).NonLazy();
             Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.BulletFrost).FromInstance(bulletFrostGroup).NonLazy();
             Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.BulletPoison).FromInstance(bulletPoisonGroup).NonLazy();
+            Container.Bind<IInstancingRenderGroup>().WithId(GPUInstancingGroupType.Tower).FromInstance(towerGroup).NonLazy();
         }
 
         private InstancedRenderGroupComponent CreateInstancedGroup(string name, Mesh commonMesh, Material commonMaterial, int layer)

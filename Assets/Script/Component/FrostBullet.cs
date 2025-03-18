@@ -13,6 +13,8 @@ namespace WannaBe
         [SerializeField] private float hitThreshold = 0.5f;
         [SerializeField] private float frostEffectDuration = 4f;
         [SerializeField] private float slowMultiplier = 0.7f; // Значення 0.7 означає зниження швидкості на 30%
+        [SerializeField] private float splashRadius = 3f;
+        [SerializeField] private LayerMask splashLayerMask;
 
         private Transform target;
 
@@ -46,10 +48,10 @@ namespace WannaBe
             transform.position = Vector3.MoveTowards(transform.position, _predictedPosition, initialSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position, _predictedPosition) <= hitThreshold)
             {
-                if (target != null)
-                    HitTarget(target);
-                else
-                    ReturnToPool();
+                Collider[] hitEnemies = Physics.OverlapSphere(_predictedPosition, splashRadius, splashLayerMask);
+                foreach (Collider hit in hitEnemies)
+                    HitTarget(hit.transform);
+                ReturnToPool();
             }  
         }
 

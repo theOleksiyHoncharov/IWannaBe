@@ -136,3 +136,7 @@ MonoBehaviour:
   hitThreshold: 0.5
   frostEffectDuration: 4
   slowMultiplier: 0.5
+  splashRadius: 3
+  splashLayerMask:
+    serializedVersion: 2
+    m_Bits: 128

@@ -15,9 +15,9 @@ namespace WannaBe
 
         [Header("Налаштування таргетингу")]
         [Tooltip("Радіус досяжності для виявлення ворогів.")]
-        [SerializeField] private float targetRange = 10f;
+        [SerializeField] protected float targetRange = 10f;
         [Tooltip("Шар, на якому знаходяться вороги.")]
-        [SerializeField] private LayerMask enemyLayerMask;
+        [SerializeField] protected LayerMask enemyLayerMask;
 
         [Header("Налаштування кулі")]
         [Tooltip("Тип кулі, що буде використовуватись при стрільбі.")]
@@ -25,7 +25,7 @@ namespace WannaBe
 
         // Інжектимо дистриб'ютора куль і провайдера фінішної точки
         [Inject] private IBulletDistributor bulletDistributor;
-        [Inject] private IFinishPointProvider finishPointProvider;
+        [Inject] protected IFinishPointProvider finishPointProvider;
 
         void Update()
         {
@@ -48,7 +48,7 @@ namespace WannaBe
         /// Виявляє ворогів у радіусі досяжності та повертає того, хто найближче до фінішної точки.
         /// </summary>
         /// <returns>Transform цільового ворога або null, якщо ворогів немає.</returns>
-        private Transform GetTarget()
+        protected virtual Transform GetTarget()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, targetRange, enemyLayerMask);
             if (hits.Length == 0)

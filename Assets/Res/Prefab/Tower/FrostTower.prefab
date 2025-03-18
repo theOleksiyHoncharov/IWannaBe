@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8450847749639323686}
-  - component: {fileID: 4011815699125331498}
+  - component: {fileID: 3550562350660528325}
   m_Layer: 0
   m_Name: FrostTower
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1835939991722813246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4011815699125331498
+--- !u!114 &3550562350660528325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 200868117023786943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a43c052a355755148a1fd48286e6cf0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 880b14953faac8b40affa168af90449f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1835939991722813246}
